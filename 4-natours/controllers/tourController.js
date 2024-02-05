@@ -4,6 +4,14 @@ const Tour = require('../models/tourModel')
 //   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 // )
 
+exports.aliasTopTours = (req, res, next) => {
+  req.query.limit = '5'
+  req.query.sort = '-ratingsAverage,price'
+  req.query.fields = 'name,price,ratingsAverage,summary,difficulty'
+  next()
+
+}
+
 exports.getAllTours = async (req, res) => {
   try {
     // BUILD QUERY
@@ -25,8 +33,8 @@ exports.getAllTours = async (req, res) => {
       // console.log(sortBy)
       query = query.sort(sortBy)
     }
-    else {
-      // query = query.sort('-createdAt')
+    else { //bug
+      // query = query.sort('-createdAt') 
     }
 
     // 3) Field limiting
@@ -43,7 +51,7 @@ exports.getAllTours = async (req, res) => {
     const limit = req.query.limit * 1 || 100
     const skip = (page - 1) * limit
 
-    console.log('page:', page, 'limit:', limit, 'skip:', skip)
+    // console.log('page:', page, 'limit:', limit, 'skip:', skip)
 
     query = query.skip(skip).limit(limit)
     
