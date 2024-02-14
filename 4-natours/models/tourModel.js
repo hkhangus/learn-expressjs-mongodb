@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const validator = require('validator');
+// const validator = require('validator');
 
 const tourSchema = new mongoose.Schema({
     name: {
@@ -114,7 +114,7 @@ tourSchema.pre(/^find/, function(next) {
 // AGGREGATION MIDDLEWARE
 tourSchema.pre('aggregate', function(next) {
     this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
-    console.log(this.pipeline());
+    // console.log(this.pipeline());
     next();
 });
 
