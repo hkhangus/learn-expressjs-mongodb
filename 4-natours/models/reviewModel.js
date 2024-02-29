@@ -37,14 +37,21 @@ const reviewSchema = new mongoose.Schema(
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 reviewSchema.pre(/^find/, function (next) {
+  // this.populate([
+  //   {
+  //     path: 'tour',
+  //     select: 'name',
+  //   },
+  //   {
+  //     path: 'user',
+  //     select: 'name photo',
+  //   },
+  // ]);
+
   this.populate([
     {
-      path: 'tour',
-      select: 'name',
-    },
-    {
       path: 'user',
-      select: 'name',
+      select: 'name photo',
     },
   ]);
   next();
